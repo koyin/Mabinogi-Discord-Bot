@@ -6,36 +6,29 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('DISCORD_GUILD')
-
 print(TOKEN)
-print(GUILD)
 
 client = discord.Client()
 
 @client.event
 async def on_ready():
-    for guild in client.guilds:
-        if guild.name == GUILD:
-            break
-
     print(
-        f'{client.user} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})'
+        f'{client.user} is connected'
     )
-
-    members = '\n - '.join([member.name for member in guild.members])
-    print(f'Guild Members:\n - {members}')
+    for guild in client.guilds:
+        print(
+            f'{guild.name}(id: {guild.id})\n'
+        )
+        members = '\n - '.join([member.name for member in guild.members])
+        print(f'Guild Members:\n - {members}')
+        print(f'\n\n')
 
 @client.event
 async def on_message(message):
-    #if message.guild.id != GUILD:
-    #    return
-
     if message.author == client.user:
         return
 
-    if "占卜" not in message.channel.name:
+    if "占卜" not in message.channel.name and "豬肉榮" not in message.channel.name:
         return
 
     print(message)
@@ -66,8 +59,8 @@ async def on_message(message):
         split_message = message.content.split(" ", 1)
 
         lucky_result = [
-            "是",
-            "不是"
+            "⭕",
+            "❌"
         ]
 
         response = random.choice(lucky_result)
@@ -110,13 +103,30 @@ async def on_message(message):
     
     elif (message.content.startswith("!摸頭")):
 
+        image_url = [
+            "https://upload.cc/i1/2022/03/22/dSwHvO.jpeg",
+            "https://upload.cc/i1/2022/03/23/y0DX4f.jpg"
+        ]
+
         embed = discord.Embed(color=0x000000)
-        embed.set_image(url="https://upload.cc/i1/2022/03/22/dSwHvO.jpeg")
+        embed.set_image(url=random.choice(image_url))
 
         await message.channel.send((
             f"<@{message.author.id}>"
         ), embed=embed)
-        
+    
+    elif (message.content.startswith("!裝死")):
+
+        image_url = [
+            "https://upload.cc/i1/2022/03/23/Z3SwRI.jpg"
+        ]
+
+        embed = discord.Embed(color=0x000000)
+        embed.set_image(url=random.choice(image_url))
+
+        await message.channel.send((
+            f"<@{message.author.id}>"
+        ), embed=embed)
     
     elif (message.content.startswith("!help")):
 
@@ -126,6 +136,8 @@ async def on_message(message):
             "====================================="
             "\n"
             "`!摸頭`"
+            "\n"
+            "`!裝死`"
             "\n"
             "====================================="
             "\n"
@@ -143,12 +155,13 @@ async def on_message(message):
         random_response = [
             '汪！',
             '汪！汪汪！',
+            '我要肉肉！',
             '蛤？'
         ]
 
         response = random.choice(random_response)
         await message.channel.send((
-            f"<@{message.author.id}>"
+            f"<@{message.author.id}> "
             f"{response}"
         ))
 
