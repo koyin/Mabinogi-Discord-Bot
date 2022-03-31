@@ -23,12 +23,14 @@ async def on_ready():
         print(f'Guild Members:\n - {members}')
         print(f'\n\n')
 
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="a movie"))
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    if "占卜" not in message.channel.name and "豬肉榮" not in message.channel.name:
+    if "占卜" not in message.channel.name and "豬肉榮" not in message.channel.name and "鯊" not in message.channel.name:
         return
 
     print(message)
@@ -38,12 +40,12 @@ async def on_message(message):
         split_message = message.content.split(" ", 1)
 
         lucky_result = [
-            "大兇",
-            "兇",
-            "小兇",
-            "小吉",
-            "吉",
-            "大吉"
+            "大鯊",
+            "鯊",
+            "小鯊",
+            "小魚",
+            "魚",
+            "大魚"
         ]
 
         response = random.choice(lucky_result)
@@ -83,7 +85,7 @@ async def on_message(message):
         if (len(split_message) < 3 or not pattern.match(split_message[1])):
             await message.channel.send((
                 f"<@{message.author.id}>"
-                f"指令錯誤汪！"
+                f"指令錯誤鯊！"
             ))
             return
 
@@ -104,8 +106,7 @@ async def on_message(message):
     elif (message.content.startswith("!摸頭")):
 
         image_url = [
-            "https://upload.cc/i1/2022/03/22/dSwHvO.jpeg",
-            "https://upload.cc/i1/2022/03/23/y0DX4f.jpg"
+            "https://upload.cc/i1/2022/03/31/bFlJfv.jpg"
         ]
 
         embed = discord.Embed(color=0x000000)
@@ -118,7 +119,7 @@ async def on_message(message):
     elif (message.content.startswith("!裝死")):
 
         image_url = [
-            "https://upload.cc/i1/2022/03/23/Z3SwRI.jpg"
+            "https://upload.cc/i1/2022/03/31/SjGqv1.jpeg"
         ]
 
         embed = discord.Embed(color=0x000000)
@@ -131,7 +132,7 @@ async def on_message(message):
     elif (message.content.startswith("!help")):
 
         await message.channel.send((
-            f"<@{message.author.id}> 指令說明汪汪！"
+            f"<@{message.author.id}> 指令說明鯊鯊！"
             "\n"
             "====================================="
             "\n"
@@ -145,7 +146,7 @@ async def on_message(message):
             "\n"
             "`!yesno 一些事情` 幫你做決定"
             "\n"
-            "`!dice NdM` 來擲個骰子 (例子：`!dice 1d13` 投擲一顆13面骰子、`!dice 2d7` 投擲兩顆骰子，每顆骰子7面)"
+            "`!dice NdM 一些事情` 來擲個骰子 (例子：`!dice 1d13` 投擲一顆13面骰子、`!dice 2d7` 投擲兩顆骰子，每顆骰子7面)"
             "\n"
             "====================================="
         ))
@@ -153,9 +154,9 @@ async def on_message(message):
     else:
 
         random_response = [
-            '汪！',
-            '汪！汪汪！',
-            '我要肉肉！',
+            '我是鯊鯊！',
+            '鯊！鯊鯊！',
+            '我要宵夜！',
             '蛤？'
         ]
 
