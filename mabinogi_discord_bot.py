@@ -101,6 +101,31 @@ async def on_message(message):
             "\n"
         ) + (f"結果是 {' + '.join(add)} = {sum}" if len(add) > 1 else f"結果是 {sum}"))
     
+    elif (message.content.startswith("!range ")):
+
+        split_message = message.content.split(" ", 2)
+
+        pattern = re.compile("^\d+t\d+$")
+        pattern_d = re.compile("\d+")
+        print(split_message[1])
+        print(pattern_d.findall(split_message[1]))
+
+        if (len(split_message) < 3 or not pattern.match(split_message[1])):
+            await message.channel.send((
+                f"<@{message.author.id}>"
+                f"指令錯誤汪！"
+            ))
+            return
+
+        d = pattern_d.findall(split_message[1])
+
+        rand_int = random.randint(d[0], d[1])
+
+        await message.channel.send((
+            f"<@{message.author.id}> {split_message[2]}"
+            "\n"
+        ) + (f"結果是 {rand_int}"))
+    
     elif (message.content.startswith("!摸頭")):
 
         image_url = [
@@ -146,6 +171,8 @@ async def on_message(message):
             "`!yesno 一些事情` 幫你做決定"
             "\n"
             "`!dice NdM 一些事情` 來擲個骰子 (例子：`!dice 1d13` 投擲一顆13面骰子、`!dice 2d7` 投擲兩顆骰子，每顆骰子7面)"
+            "\n"
+            "`!range NtM 一些事情` 抽範圍數值 (例子：`!range 3d9` 抽選一個3至9的數字)"
             "\n"
             "====================================="
         ))
