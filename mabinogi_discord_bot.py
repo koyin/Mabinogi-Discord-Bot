@@ -119,7 +119,7 @@ async def on_message(message):
 
         d = pattern_d.findall(split_message[1])
 
-        rand_int = random.randint(d[0], d[1])
+        rand_int = random.randint(int(d[0]), int(d[1]))
 
         await message.channel.send((
             f"<@{message.author.id}> {split_message[2]}"
